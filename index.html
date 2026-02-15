@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مطعم ومأكولات الماهر - الرئيسية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -20,7 +23,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Cairo', sans-serif;
         }
 
         body {
@@ -34,7 +37,9 @@
         }
 
         header {
-            background: linear-gradient(to right, var(--primary-color), #7c2d12);
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+                url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
             color: white;
             padding: 0.55rem 1rem;
             box-shadow: var(--box-shadow);
@@ -315,7 +320,7 @@
         }
 
         .product-title {
-            font-size: 0.5rem;
+            font-size: 11px;
             margin-bottom: 0;
             color: var(--primary-color);
             line-height: 1.25;
@@ -324,13 +329,13 @@
         .product-description {
             color: var(--gray-color);
             margin-bottom: 0;
-            font-size: 0.42rem;
+            font-size: 11px;
             line-height: 1.25;
         }
 
         .product-price {
             font-weight: bold;
-            font-size: 0.5rem;
+            font-size: 11px;
             color: var(--dark-color);
             margin-bottom: 0;
         }
@@ -362,7 +367,7 @@
             width: 100%;
             background-color: var(--primary-color);
             color: white;
-            font-size: 0.5rem;
+            font-size: 11px;
             padding: 0.22rem 0.3rem;
         }
 
@@ -681,12 +686,10 @@
         <div id="toast-message" class="toast-message" aria-live="polite"></div>
 
         <section id="home-page" class="page active">
-            <h2 class="section-title">أصنافنا المميزة</h2>
             <div class="products-grid" id="featured-products"></div>
         </section>
 
         <section id="products-page" class="page">
-            <h2 class="section-title">جميع الأصناف</h2>
             <div class="products-grid" id="all-products"></div>
         </section>
     </main>
@@ -721,11 +724,7 @@
 
     <footer>
         <div class="footer-content">
-            <p>© 2026 مطعم ومأكولات الماهر. جميع الحقوق محفوظة.</p>
-            <p style="margin-top: 0.5rem; color: #ccc;">
-                <i class="fas fa-phone"></i> ٠٥٠١٢٣٤٥٦٧ |
-                <i class="fas fa-envelope"></i> info@home-tools.com
-            </p>
+            <p>مطعم ومأكولات الماهر</p>
         </div>
     </footer>
 
@@ -783,7 +782,7 @@
                 <div class="product-info">
                     <h3 class="product-title">${product.name}</h3>
                     <p class="product-description">${product.description}</p>
-                    <div class="product-price">${formatPrice(product.price)} ل.س</div>
+                    <div class="product-price">${formatPrice(product.price)}</div>
                     <div class="product-actions">
                         <button class="btn add-cart-btn" type="button">إضافة للسلة</button>
                     </div>
@@ -953,7 +952,7 @@
 
             if (!cartItems.length) {
                 cartItemsEl.innerHTML = "<p style='color:#6c757d;'>السلة فارغة حاليًا.</p>";
-                cartTotalEl.textContent = "الإجمالي: 0 ل.س";
+                cartTotalEl.textContent = "الإجمالي: 0";
                 return;
             }
 
@@ -966,7 +965,7 @@
                 row.className = "cart-item";
                 row.innerHTML = `
                     <div>${item.name}</div>
-                    <div>${formatPrice(item.price)} ل.س</div>
+                    <div>${formatPrice(item.price)}</div>
                     <div class="cart-item-actions">
                         <button class="qty-btn" type="button" data-action="inc">+</button>
                         <span>${item.quantity}</span>
@@ -981,7 +980,7 @@
                 cartItemsEl.appendChild(row);
             });
 
-            cartTotalEl.textContent = `الإجمالي: ${formatPrice(total)} ل.س`;
+            cartTotalEl.textContent = `الإجمالي: ${formatPrice(total)}`;
         }
 
         function openCartModal() {
@@ -1110,7 +1109,7 @@
             const itemsText = cartItems.map((item, index) => {
                 const subtotal = item.price * item.quantity;
                 total += subtotal;
-                return `${index + 1}- ${item.name}\nالكمية: ${item.quantity}\nالسعر: ${formatPrice(item.price)} ل.س\nالمجموع الفرعي: ${formatPrice(subtotal)} ل.س`;
+                return `${index + 1}- ${item.name}\nالكمية: ${item.quantity}\nالسعر: ${formatPrice(item.price)}\nالمجموع الفرعي: ${formatPrice(subtotal)}`;
             }).join("\n\n");
 
             const orderTypeLabel = orderType === "delivery" ? "توصيل للمنزل" : "استلام باليد";
@@ -1134,7 +1133,7 @@ ${locationLine}${pickupCodeLine ? `\n${pickupCodeLine}` : ""}
 تفاصيل الطلب:
 ${itemsText}
 
-الإجمالي الكلي: ${formatPrice(total)} ل.س`;
+الإجمالي الكلي: ${formatPrice(total)}`;
 
             const waUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
             window.open(waUrl, "_blank");
